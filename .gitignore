@@ -1,0 +1,30 @@
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# macOS
+.DS_Store
+
+# Audio output (user generated)
+*.mp3
+*.wav
+*.m4a
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node (if any)
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
