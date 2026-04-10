@@ -154,15 +154,17 @@ mmx auth login          # Re-authenticate if needed
 
 ## Models Reference
 
-| Model | Use Case | Quota |
+| Model | Use Case | Notes |
 |---|---|---|
-| MiniMax-M* | Text Chat | Weekly/Daily |
+| MiniMax-M* | Text Chat | Check `mmx quota show` |
 | music-2.5 | Music Gen | Requires Max Plan |
-| music-2.6 | Music Gen | 700/week |
-| music-cover | Music Cover | 700/week |
-| lyrics_generation | Lyrics Gen | 700/week |
-| image-01 | Image Gen | 350/week |
-| speech-hd | Speech | 28000/week |
+| music-2.6 | Music Gen | Quota-based |
+| music-cover | Music Cover | Quota-based |
+| lyrics_generation | Lyrics Gen | Quota-based |
+| image-01 | Image Gen | Quota-based |
+| speech-hd | Speech | Quota-based |
+
+Run `mmx quota show` to check your specific quota limits.
 
 ## Region Configuration
 

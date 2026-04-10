@@ -76,14 +76,17 @@ Complete lyrics → song generation pipeline.
 
 ## Available Models
 
-| Model | Use Case | Weekly Quota |
-|-------|----------|--------------|
-| MiniMax-M* | Text Chat | 15,000 |
-| music-2.6 | Music Gen | 700 |
-| music-cover | Music Cover | 700 |
-| lyrics_generation | Lyrics Gen | 700 |
-| image-01 | Image Gen | 350 |
-| speech-hd | Speech | 28,000 |
+| Model | Use Case | Notes |
+|-------|----------|-------|
+| MiniMax-M* | Text Chat | Check `mmx quota show` |
+| music-2.5 | Music Gen | Requires Max Plan |
+| music-2.6 | Music Gen | Quota-based |
+| music-cover | Music Cover | Quota-based |
+| lyrics_generation | Lyrics Gen | Quota-based |
+| image-01 | Image Gen | Quota-based |
+| speech-hd | Speech | Quota-based |
+
+Run `mmx quota show` to check your specific quota limits.
 
 ## API Reference
 
