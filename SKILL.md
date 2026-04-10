@@ -138,6 +138,13 @@ mmx config set --key region --value global # International
 - Check `mmx quota show` to monitor usage
 - On quota exhaustion: wait for weekly reset or upgrade plan
 
+### Quota Display Format
+**Important**: In `mmx quota show`, the format is `used/total`, not `remaining/total`:
+```
+music-2.6  6 / 100   # means 6 used out of 100, NOT 6 remaining
+```
+So if you see `100/100`, your quota is exhausted for this period.
+
 ### API Key Management
 Keys are stored in `~/.mmx/config.json` (managed by mmx CLI)
 ```bash
