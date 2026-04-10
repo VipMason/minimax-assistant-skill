@@ -119,6 +119,13 @@ Use `--out` to specify any output path:
 ```
 Default: current directory with timestamp (`music_<timestamp>.mp3`)
 
+### Streaming Mode
+Add `--stream` flag to receive audio as it's generated (slower but progressive):
+```bash
+./scripts/music-gen.sh --stream --model music-2.6 --prompt "Jazz" --out song.mp3
+```
+Note: Streaming waits for complete generation but processes in chunks.
+
 ### Model Selection
 Use `--model` to choose different models:
 ```bash
