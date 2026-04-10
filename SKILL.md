@@ -2,31 +2,40 @@
 name: minimax-assistant
 description: >
   MiniMax AI Platform assistant for text, images, video, music, speech, and search.
-  Use when user wants to (1) install/setup mmx CLI, (2) generate images, music, or speech,
-  (3) use AI chat or search, (4) create songs with AI-generated lyrics,
-  or (5) check/manage MiniMax quota.
+  Use when user wants to (1) install/setup mmx CLI (from https://github.com/MiniMax-AI/cli),
+  (2) generate images, music, or speech, (3) use AI chat or search,
+  (4) create songs with AI-generated lyrics, or (5) check/manage MiniMax quota.
   Triggers on: "MiniMax", "mmx", "生成音乐", "生成图片", "AI生成", "音乐生成", "歌词生成".
 ---
 
 # MiniMax Assistant
 
-Comprehensive tool for MiniMax AI Platform. Covers installation, all capabilities, and advanced workflows.
+## Installation Flow
 
-## Quick Install
+**IMPORTANT**: Users must install mmx CLI FIRST before using this skill.
+
+### Step 1: Install mmx CLI
 
 ```bash
 npm install -g mmx-cli
+```
+
+Repository: https://github.com/MiniMax-AI/cli
+
+### Step 2: Authenticate
+
+```bash
 mmx auth login --api-key <YOUR_API_KEY>
 ```
 
-API Key获取: https://platform.minimaxi.com (CN) 或 https://platform.minimax.io (Global)
+Get API key: https://platform.minimaxi.com (CN) or https://platform.minimax.io (Global)
 
-## Config & Quota
+### Step 3: Configure
 
 ```bash
-mmx config show          # 查看当前配置
-mmx quota show           # 查看额度
-mmx auth status          # 认证状态
+mmx config show          # View current config
+mmx quota show           # View quota
+mmx auth status          # Check auth status
 ```
 
 ## All Capabilities
@@ -43,7 +52,7 @@ mmx auth status          # 认证状态
 
 ## Advanced: Direct API (When CLI Cannot Choose Model)
 
-mmx CLI music generate hardcodes music-2.5 and does not support model selection. Use direct API:
+mmx CLI `music generate` hardcodes music-2.5. For music-2.6 or music-cover, use direct API:
 
 ```bash
 # 音乐生成 (supports music-2.6, music-cover)
@@ -124,4 +133,4 @@ API endpoints:
 
 ## API Documentation
 
-See `references/api-models.md` for detailed API reference including all endpoints, parameters, and error codes.
+See `references/api-models.md` for detailed API reference.
