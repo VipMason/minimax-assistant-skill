@@ -40,32 +40,32 @@ mmx auth status          # Check auth status
 
 ## All Capabilities
 
-| 能力 | 命令 | 说明 |
+| Feature | Command | Description |
 |---|---|---|
-| 文字聊天 | `mmx text chat --message "hi"` | 多轮对话 |
-| 图片生成 | `mmx image "描述"` | 支持 --n 批量, --aspect-ratio |
-| 视频生成 | `mmx video generate --prompt "描述"` | 支持 --async 异步 |
-| 音乐生成 | `mmx music generate --prompt "风格" --lyrics "歌词"` | CLI 只支持 music-2.5 |
-| 语音合成 | `mmx speech synthesize --text "文字" --out audio.mp3` | 30+音色 |
-| 图像理解 | `mmx vision image.jpg` | 图片描述 |
-| 网络搜索 | `mmx search "查询内容"` | MiniMax 搜索 |
+| Text Chat | `mmx text chat --message "hi"` | Multi-turn conversation |
+| Image Generation | `mmx image "description"` | Batch with --n, --aspect-ratio |
+| Video Generation | `mmx video generate --prompt "description"` | Async with --async |
+| Music Generation | `mmx music generate --prompt "style" --lyrics "lyrics"` | CLI uses music-2.5 only |
+| Speech Synthesis | `mmx speech synthesize --text "text" --out audio.mp3` | 30+ voices |
+| Image Understanding | `mmx vision image.jpg` | Describe images |
+| Web Search | `mmx search "query"` | MiniMax search |
 
 ## Advanced: Direct API (When CLI Cannot Choose Model)
 
 mmx CLI `music generate` hardcodes music-2.5. For music-2.6 or music-cover, use direct API:
 
 ```bash
-# 音乐生成 (supports music-2.6, music-cover)
+# Music generation (supports music-2.6, music-cover)
 curl -X POST "https://api.minimaxi.com/v1/music_generation" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <API_KEY>" \
-  -d '{"model":"music-2.6","prompt":"风格","lyrics":"歌词","output_format":"hex"}'
+  -d '{"model":"music-2.6","prompt":"style","lyrics":"lyrics","output_format":"hex"}'
 
-# 歌词生成
+# Lyrics generation
 curl -X POST "https://api.minimaxi.com/v1/lyrics_generation" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <API_KEY>" \
-  -d '{"mode":"write_full_song","prompt":"主题风格","title":"歌曲名"}'
+  -d '{"mode":"write_full_song","prompt":"theme or style","title":"song title"}'
 ```
 
 API Key location: `~/.mmx/config.json` -> `api_key` field
@@ -77,14 +77,14 @@ API Key location: `~/.mmx/config.json` -> `api_key` field
 LYRICS=$(curl -s -X POST "https://api.minimaxi.com/v1/lyrics_generation" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <API_KEY>" \
-  -d '{"mode":"write_full_song","prompt":"中国风，婉约惆怅","title":"烟雨江南"}' \
+  -d '{"mode":"write_full_song","prompt":"Chinese classical, melancholic","title":"烟雨江南"}' \
   | python3 -c "import sys,json; print(json.load(sys.stdin)['lyrics'])")
 
 # 2. Generate song with lyrics
 curl -s -X POST "https://api.minimaxi.com/v1/music_generation" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <API_KEY>" \
-  -d "{\"model\":\"music-2.6\",\"prompt\":\"中国古典乐器，古筝琵琶\",\"lyrics\":\"$LYRICS\",\"output_format\":\"hex\"}" \
+  -d "{\"model\":\"music-2.6\",\"prompt\":\"Chinese classical instruments, Guzheng, Pipa\",\"lyrics\":\"$LYRICS\",\"output_format\":\"hex\"}" \
   > song.json
 
 # 3. Save audio
@@ -104,27 +104,27 @@ print('Done!')
 
 Usage:
 ```bash
-./scripts/music-gen.sh --model music-2.6 --prompt "风格" --lyrics "歌词" --out song.mp3
-./scripts/lyrics-to-song.sh --prompt "主题" --title "歌名" --style "伴奏风格" --out output.mp3
+./scripts/music-gen.sh --model music-2.6 --prompt "style" --lyrics "lyrics" --out song.mp3
+./scripts/lyrics-to-song.sh --prompt "theme" --title "song title" --style "instrument style" --out output.mp3
 ```
 
 ## Models Reference
 
-| 模型 | 用途 | 额度周期 |
+| Model | Use Case | Quota |
 |---|---|---|
-| MiniMax-M* | 文字聊天 | 每周/每日 |
-| music-2.5 | 音乐生成 | 需Max Plan |
-| music-2.6 | 音乐生成 | 每周700 |
-| music-cover | 音乐覆盖 | 每周700 |
-| lyrics_generation | 歌词生成 | 每周700 |
-| image-01 | 图片生成 | 每周350 |
-| speech-hd | 高清语音 | 每周28000 |
+| MiniMax-M* | Text Chat | Weekly/Daily |
+| music-2.5 | Music Gen | Requires Max Plan |
+| music-2.6 | Music Gen | 700/week |
+| music-cover | Music Cover | 700/week |
+| lyrics_generation | Lyrics Gen | 700/week |
+| image-01 | Image Gen | 350/week |
+| speech-hd | Speech | 28000/week |
 
 ## Region Configuration
 
 ```bash
-mmx config set --key region --value cn    # 中国区
-mmx config set --key region --value global # 全球区
+mmx config set --key region --value cn    # CN region
+mmx config set --key region --value global # Global region
 ```
 
 API endpoints:
