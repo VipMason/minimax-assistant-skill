@@ -104,8 +104,45 @@ print('Done!')
 
 Usage:
 ```bash
-./scripts/music-gen.sh --model music-2.6 --prompt "style" --lyrics "lyrics" --out song.mp3
-./scripts/lyrics-to-song.sh --prompt "theme" --title "song title" --style "instrument style" --out output.mp3
+./scripts/music-gen.sh --model music-2.6 --prompt "style" --lyrics "lyrics" --out /path/to/output.mp3
+./scripts/lyrics-to-song.sh --prompt "theme" --title "song title" --style "instrument style" --out /path/to/output.mp3
+```
+
+## Customization
+
+### Output Location
+Use `--out` to specify any output path:
+```bash
+--out ~/Music/my_song.mp3
+--out /tmp/song.mp3
+--out ./output.mp3
+```
+Default: current directory with timestamp (`music_<timestamp>.mp3`)
+
+### Model Selection
+Use `--model` to choose different models:
+```bash
+--model music-2.6        # Standard music generation (700/week)
+--model music-cover      # Style transfer/cover (700/week)
+```
+
+### Region
+Set via mmx CLI:
+```bash
+mmx config set --key region --value cn     # China
+mmx config set --key region --value global # International
+```
+
+### Error Handling
+- API errors are printed with status codes and messages
+- Check `mmx quota show` to monitor usage
+- On quota exhaustion: wait for weekly reset or upgrade plan
+
+### API Key Management
+Keys are stored in `~/.mmx/config.json` (managed by mmx CLI)
+```bash
+mmx auth status          # Check current auth
+mmx auth login          # Re-authenticate if needed
 ```
 
 ## Models Reference
