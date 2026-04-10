@@ -1,85 +1,89 @@
 # MiniMax Assistant Skill for OpenClaw
 
-A comprehensive OpenClaw skill for MiniMax AI Platform, supporting text, images, video, music, speech, and lyrics generation.
+A comprehensive skill for OpenClaw AI assistants to access MiniMax AI Platform capabilities.
+
+## What This Skill Does
+
+This skill enables OpenClaw AI assistants to use MiniMax services:
+- Text chat
+- Image generation
+- Music generation
+- Video generation
+- Speech synthesis
+- Lyrics generation
+- Web search
+
+## Prerequisites
+
+1. **OpenClaw AI Assistant** installed
+2. **mmx CLI** installed: `npm install -g mmx-cli`
+3. **MiniMax API Key**: https://platform.minimaxi.com (CN) or https://platform.minimax.io (Global)
 
 ## Installation
 
-### For OpenClaw Users
+### For AI Agents (OpenClaw)
 
-```bash
-# Install via clawhub
-npx skills add minimax-assistant -g
-
-# Or download the .skill file and place in your skills directory
+Place the skill folder in your OpenClaw skills directory:
+```
+your-openclaw-workspace/skills/minimax-assistant/
+├── SKILL.md
+├── scripts/
+│   ├── music-gen.sh
+│   └── lyrics-to-song.sh
+└── references/
+    └── api-models.md
 ```
 
-### For Individual Use
+### For Manual Use
 
 ```bash
 # Install mmx CLI
 npm install -g mmx-cli
 
 # Authenticate
-mmx auth login --api-key <YOUR_API_KEY>
+mmx auth login --api-key YOUR_API_KEY
+
+# Test
+mmx quota show
+mmx text chat --message "Hello"
 ```
 
-Get your API key at: https://platform.minimaxi.com (CN) or https://platform.minimax.io (Global)
+## Quick Reference
 
-## Capabilities
-
-| Feature | Command | Description |
-|---------|---------|-------------|
-| Text Chat | `mmx text chat --message "hi"` | Multi-turn conversation |
-| Image Generation | `mmx image "description"` | Batch support with --n |
-| Video Generation | `mmx video generate --prompt "desc"` | Async with --async |
-| Music Generation | `mmx music generate --prompt "style" --lyrics "lyrics"` | CLI uses music-2.5 |
-| Speech Synthesis | `mmx speech synthesize --text "text" --out audio.mp3"` | 30+ voices |
-| Image Understanding | `mmx vision image.jpg` | Describe images |
-| Web Search | `mmx search "query"` | MiniMax search |
-
-## Scripts
-
-### music-gen.sh
-
-Music generation with model selection support (bypasses CLI limitation).
+### Music Generation
 
 ```bash
-./music-gen.sh --model music-2.6 --prompt "Jazz" --lyrics "la la" --out song.mp3
+# music-gen.sh - supports model selection
+./scripts/music-gen.sh \
+  --model music-2.6 \
+  --prompt "Jazz, smooth" \
+  --lyrics "[verse]\nLa la la" \
+  --out song.mp3
 ```
 
-### lyrics-to-song.sh
-
-Complete pipeline: generate lyrics → create song.
+### Lyrics to Song Pipeline
 
 ```bash
-./lyrics-to-song.sh \
+./scripts/lyrics-to-song.sh \
   --prompt "Chinese classical style" \
   --title "烟雨江南" \
   --style "Guzheng, Pipa" \
   --out song.mp3
 ```
 
-## API Reference
-
-See [references/api-models.md](references/api-models.md) for detailed API documentation.
-
-## Models
+### Available Models
 
 | Model | Use Case | Quota |
 |-------|----------|-------|
-| MiniMax-M* | Text Chat | Weekly/Daily |
-| music-2.5 | Music Gen | Requires Max Plan |
 | music-2.6 | Music Gen | 700/week |
 | music-cover | Music Cover | 700/week |
 | lyrics_generation | Lyrics Gen | 700/week |
 | image-01 | Image Gen | 350/week |
 | speech-hd | Speech | 28000/week |
 
-## Privacy
+## API Reference
 
-- API keys use placeholder: `<YOUR_API_KEY>`
-- Scripts read keys from `~/.mmx/config.json`
-- No data exfiltration
+See `references/api-models.md` for detailed API documentation.
 
 ## License
 
