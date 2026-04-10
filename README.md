@@ -79,7 +79,7 @@ Complete lyrics → song generation pipeline.
 | Model | Use Case | Notes |
 |-------|----------|-------|
 | MiniMax-M* | Text Chat | Check `mmx quota show` |
-| music-2.5 | Music Gen | Requires Max Plan |
+| music-2.5 | Music Gen | Check `mmx quota show` |
 | music-2.6 | Music Gen | Quota-based |
 | music-cover | Music Cover | Quota-based |
 | lyrics_generation | Lyrics Gen | Quota-based |
