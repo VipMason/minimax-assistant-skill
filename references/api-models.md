@@ -1,37 +1,37 @@
-# MiniMax API 参考
+# MiniMax API Reference
 
-## API 端点
+## API Endpoints
 
-| 服务 | CN 端点 | Global 端点 |
-|---|---|---|
-| 文字 | `https://api.minimaxi.com/v1/text/chatcompletion_v2` | `https://api.minimax.io/v1/text/chatcompletion_v2` |
-| 音乐生成 | `https://api.minimaxi.com/v1/music_generation` | `https://api.minimax.io/v1/music_generation` |
-| 歌词生成 | `https://api.minimaxi.com/v1/lyrics_generation` | `https://api.minimax.io/v1/lyrics_generation` |
-| 图片生成 | `https://api.minimaxi.com/v1/image_generation` | `https://api.minimax.io/v1/image_generation` |
-| 语音合成 | `https://api.minimaxi.com/v1/t2a_v2` | `https://api.minimax.io/v1/t2a_v2` |
-| 视频生成 | `https://api.minimaxi.com/v1/video_generation` | `https://api.minimax.io/v1/video_generation` |
+| Service | CN Endpoint | Global Endpoint |
+|---------|-------------|-----------------|
+| Text | `https://api.minimaxi.com/v1/text/chatcompletion_v2` | `https://api.minimax.io/v1/text/chatcompletion_v2` |
+| Music Gen | `https://api.minimaxi.com/v1/music_generation` | `https://api.minimax.io/v1/music_generation` |
+| Lyrics Gen | `https://api.minimaxi.com/v1/lyrics_generation` | `https://api.minimax.io/v1/lyrics_generation` |
+| Image Gen | `https://api.minimaxi.com/v1/image_generation` | `https://api.minimax.io/v1/image_generation` |
+| Speech | `https://api.minimaxi.com/v1/t2a_v2` | `https://api.minimax.io/v1/t2a_v2` |
+| Video Gen | `https://api.minimaxi.com/v1/video_generation` | `https://api.minimax.io/v1/video_generation` |
 
-## 认证
+## Authentication
 
-所有请求需要在 Header 包含:
+All requests require Header:
 ```
 Authorization: Bearer <API_KEY>
 Content-Type: application/json
 ```
 
-API Key 位置: `~/.mmx/config.json` → `api_key`
+API Key location: `~/.mmx/config.json` -> `api_key`
 
-## 音乐生成 API
+## Music Generation API
 
-**端点**: `POST /v1/music_generation`
+**Endpoint**: `POST /v1/music_generation`
 
-**请求体**:
+**Request Body**:
 ```json
 {
     "model": "music-2.6",          // music-2.5, music-2.6, music-cover
-    "prompt": "风格描述",           // 1-2000字符
-    "lyrics": "歌词内容",           // 结构化歌词，带 [verse], [chorus] 等标签
-    "output_format": "hex",        // 或 "url"（24小时过期）
+    "prompt": "Style description", // 1-2000 chars
+    "lyrics": "Lyrics content",    // Structured lyrics with [verse], [chorus] tags
+    "output_format": "hex",        // or "url" (expires in 24h)
     "audio_setting": {
         "sample_rate": 44100,
         "bitrate": 256000,
@@ -40,15 +40,15 @@ API Key 位置: `~/.mmx/config.json` → `api_key`
 }
 ```
 
-**响应**:
+**Response**:
 ```json
 {
     "data": {
-        "audio": "<hex编码的音频>",
-        "status": 2               // 1=进行中, 2=完成
+        "audio": "<hex-encoded audio>",
+        "status": 2               // 1=in progress, 2=completed
     },
     "extra_info": {
-        "music_duration": 90017,  // 毫秒
+        "music_duration": 90017,  // milliseconds
         "music_sample_rate": 44100,
         "bitrate": 256000,
         "music_size": 3666641
@@ -60,57 +60,55 @@ API Key 位置: `~/.mmx/config.json` → `api_key`
 }
 ```
 
-## 歌词生成 API
+## Lyrics Generation API
 
-**端点**: `POST /v1/lyrics_generation`
+**Endpoint**: `POST /v1/lyrics_generation`
 
-**请求体**:
+**Request Body**:
 ```json
 {
-    "mode": "write_full_song",     // write_full_song 或 edit
-    "prompt": "主题风格描述",       // 0-2000字符
-    "title": "歌曲标题",            // 可选
-    "lyrics": "<现有歌词>"         // 仅 edit 模式需要
+    "mode": "write_full_song",     // write_full_song or edit
+    "prompt": "Theme/style description", // 0-2000 chars
+    "title": "Song title",        // optional
+    "lyrics": "<existing lyrics>"  // only for edit mode
 }
 ```
 
-**支持的歌词结构标签**:
+**Supported lyrics structure tags**:
 - `[Intro]`, `[Verse]`, `[Pre-Chorus]`, `[Chorus]`, `[Hook]`, `[Drop]`
 - `[Bridge]`, `[Solo]`, `[Build-up]`, `[Instrumental]`
 - `[Breakdown]`, `[Break]`, `[Interlude]`, `[Outro]`
 
-**响应**:
+**Response**:
 ```json
 {
-    "song_title": "歌曲标题",
+    "song_title": "Song Title",
     "style_tags": "Pop, Summer, Romantic",
-    "lyrics": "[Verse]\n歌词内容...",
+    "lyrics": "[Verse]\nLyrics content...",
     "base_resp": {"status_code": 0, "status_msg": "success"}
 }
 ```
 
-## 模型说明
+## Model Comparison
 
-### music-2.5 vs music-2.6 vs music-cover
+| Model | Description | Requirement |
+|-------|-------------|-------------|
+| music-2.5 | Basic music generation | Requires Max Plan |
+| music-2.6 | Enhanced music generation | Standard quota |
+| music-cover | Music style transfer/cover | Standard quota |
 
-| 模型 | 说明 | 要求 |
-|---|---|---|
-| music-2.5 | 基础音乐生成 | 需 Max Plan |
-| music-2.6 | 升级版音乐生成 | 标准额度 |
-| music-cover | 音乐风格转换/覆盖 | 标准额度 |
+## Common Error Codes
 
-### 常见错误码
+| Code | Description |
+|------|-------------|
+| 0 | Success |
+| 1004 | Auth failed, check API Key |
+| 1008 | Insufficient quota |
+| 2013 | Invalid parameters |
+| 2049 | Invalid API Key |
+| 2061 | Model not supported (Plan limit) |
 
-| 错误码 | 说明 |
-|---|---|
-| 0 | 成功 |
-| 1004 | 认证失败，检查 API Key |
-| 1008 | 额度不足 |
-| 2013 | 参数错误 |
-| 2049 | 无效 API Key |
-| 2061 | 模型不支持（Plan 限制） |
+## Quota Reset
 
-## 额度周期
-
-- 大多数额度: **每周一 UTC 0 点重置**
-- MiniMax-M*: 每日重置（具体时间见 quota show）
+- Most quotas: **Weekly reset (Monday UTC 00:00)**
+- MiniMax-M*: Daily reset (see quota show for time)
